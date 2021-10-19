@@ -7,14 +7,25 @@ import axios from 'axios'
 const HttpApp = () => {
     const [comment,setComment]=useState([])
 
-    useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/comments').then((response)=>{
-            setComment(response.data.slice(0,4))
-        }).catch((error)=>{
-            console.log('error')
-        })
-    }, []);
+    // useEffect(() => {
+    //     axios.get('https://jsonplaceholder.typicode.com/comments').then((response)=>{
+    //         setComment(response.data.slice(0,4))
+    //     }).catch((error)=>{
+    //         console.log('error')
+    //     })
+    // }, []);
     
+    useEffect(()=>{
+        const getComment=async()=>{
+        try{
+         const {data}= await axios.get('https://jsonplaceholder.typicode.com/comments');
+         setComment(data.slice(0,4))
+        }catch(error){
+
+            console.log('error')
+        }};
+        getComment();
+    },[])
     return ( 
         <main>
             <section className='container'>
