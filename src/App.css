@@ -3,13 +3,12 @@
 }
 
 .container{
-  border:1px solid rgb(87, 87, 250);
-  border-radius: 5px;
+  
   padding: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 80%;
+  /* width: 80%; */
   margin: 10px auto;
 }
 .box{
@@ -55,11 +54,13 @@ label{
 .column{
   display: flex;
  flex-direction: column;
- 
+ justify-content: center;
+ align-items: center;
+ /* width: 80%; */
 }
 .comment {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   justify-content: center;
   align-items: center;
   background-color:rgb(165, 195, 241);
@@ -67,7 +68,25 @@ label{
   height: 200px;
   border-radius: 5px;
   padding: 3px 10px;
+  margin: 10px;
   color: rgb(26, 26, 83);
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
+}
+.formcontrol{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+textarea{
+  border-radius: 3px;
+  border: 1px solid rgb(87, 87, 250);;
+  padding: 10px 12px;
+
+}
+.delete{
+  color: rgb(197, 53, 53);
+  background-color: rgb(250, 197, 191);
+  border: 1px solid rgb(248, 114, 114);
+  padding: 10px 16px;
 }

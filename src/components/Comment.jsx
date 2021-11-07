@@ -1,17 +1,12 @@
 
-import { useState } from 'react';
 
+const Comment = ({name,email,onClick}) => {
 
-const Comment = ({name,email}) => {
- 
+  
     return ( 
-    <div className='comment'>
-       
- 
+    <div className='comment' onClick={onClick}>
            <p>Name : {name}</p>
            <p>Email : {email}</p>
-        
-    
     </div>
      );
 }

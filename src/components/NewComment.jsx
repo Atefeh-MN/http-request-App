@@ -1,27 +1,43 @@
+import axios from 'axios';
+import { useState } from 'react';
 
 const NewComment = () => {
-    return ( 
-    <div className=' box '>
-       
-          <h5>New Comment</h5>
-        <form onSubmit={(e)=>e.preventDefault()} >
-            <div>
-            <label htmlFor="name">Name</label>
-            <input type="text" name="name" placeholder='Enter your Name' />
-            </div>
-            <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" placeholder="Enter your email" />
-            </div>
-            <div>
-            <label htmlFor="content">Content</label>
-            <input type='textarea' />
-            </div>
-            <button>Add</button>
-        </form>
-  
+	const [
+		comment,
+		setComment,
+	] = useState({ name: '', email: '', body: '' });
 
-    </div> );
-}
- 
+	const changeHandler = (e) => {
+		setComment({...comment,[e.target.name]: e.target.value })
+	}
+
+	const postCommentHandler = () => {
+		axios
+			.post('http://localhost:3001/comments', { ...comment, postId: 10 })
+			.then((res) => console.log(res))
+			.catch();
+	};
+
+	return (
+		<div className=' box column'>
+			<h3>Add New Comment</h3>
+			<form onSubmit={(e) => e.preventDefault()}>
+				<div className='formcontrol'>
+					<label htmlFor='name'>name</label>
+					<input type='text' name='name' placeholder='Enter your Name' onChange={changeHandler} />
+				</div>
+				<div className='formcontrol'>
+					<label htmlFor='email'>email</label>
+					<input type='email' name='email' placeholder='Enter your email' onChange={changeHandler} />
+				</div>
+				<div className='formcontrol'>
+					<label htmlFor='body'>body</label>
+					<textarea type='textarea' name='body' onChange={changeHandler} />
+				</div>
+				<button onClick={postCommentHandler}>add new comment</button>
+			</form>
+		</div>
+	);
+};
+
 export default NewComment;
