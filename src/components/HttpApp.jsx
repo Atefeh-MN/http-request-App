@@ -5,8 +5,14 @@ import NewComment from './NewComment';
 import axios from 'axios';
 
 const HttpApp = () => {
-	const [ comments, setComments ] = useState(null);
-	const [ selectedId, setSelectedId ] = useState(null);
+	const [
+		comments,
+		setComments,
+	] = useState(null);
+	const [
+		selectedId,
+		setSelectedId,
+	] = useState(null);
 
 	// useEffect(() => {
 	//     axios.get('https://jsonplaceholder.typicode.com/comments').then((response)=>{
@@ -19,7 +25,7 @@ const HttpApp = () => {
 		const getComment = async () => {
 			try {
 				const { data } = await axios.get('http://localhost:3001/comments');
-				setComments(data.slice(0, 4));
+				setComments(data);
 			} catch (error) {
 				console.log('error');
 			}
@@ -30,24 +36,30 @@ const HttpApp = () => {
 	const selectedIdHandler = (id) => {
 		setSelectedId(id);
 	};
+	const postCommentHandler = (comment) => {
+		axios
+			.post('http://localhost:3001/comments', { ...comment, postId: 10 })
+			.then((res) => axios.get('http://localhost:3001/comments'))
+			.then((res) => setComments(res.data))
+			.catch();
+	};
+
 	return (
 		<main>
 			<section className='container'>
-				{comments ? (
-					comments.map((c) => {
+				{
+					comments ? comments.map((c) => {
 						return (
 							<Comment key={c.id} name={c.name} email={c.email} onClick={() => selectedIdHandler(c.id)} />
 						);
-					})
-				) : (
-					<p>Loading ...</p>
-				)}
+					}) :
+					<p>Loading ...</p>}
 			</section>
 			<section className='container'>
 				<FullComment commentId={selectedId} />
 			</section>
 			<section className='container'>
-				<NewComment />
+				<NewComment onAddPost={postCommentHandler} />
 			</section>
 		</main>
 	);

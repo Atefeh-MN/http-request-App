@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const NewComment = () => {
+const NewComment = ({onAddPost}) => {
 	const [
 		comment,
 		setComment,
@@ -11,13 +11,7 @@ const NewComment = () => {
 		setComment({...comment,[e.target.name]: e.target.value })
 	}
 
-	const postCommentHandler = () => {
-		axios
-			.post('http://localhost:3001/comments', { ...comment, postId: 10 })
-			.then((res) => console.log(res))
-			.catch();
-	};
-
+	
 	return (
 		<div className=' box column'>
 			<h3>Add New Comment</h3>
@@ -34,7 +28,7 @@ const NewComment = () => {
 					<label htmlFor='body'>body</label>
 					<textarea type='textarea' name='body' onChange={changeHandler} />
 				</div>
-				<button onClick={postCommentHandler}>add new comment</button>
+				<button onClick={()=>onAddPost(comment)}>add new comment</button>
 			</form>
 		</div>
 	);
