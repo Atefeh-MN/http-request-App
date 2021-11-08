@@ -1,7 +1,10 @@
-import axios from 'axios';
-import { useState } from 'react';
 
-const NewComment = ({onAddPost}) => {
+import { useState } from 'react';
+import { addNewComment } from '../services/addNewComment';
+import { getAllComment } from '../services/getAllComment';
+
+
+const NewComment = ({onAddPost,setComments}) => {
 	const [
 		comment,
 		setComment,
@@ -10,6 +13,14 @@ const NewComment = ({onAddPost}) => {
 	const changeHandler = (e) => {
 		setComment({...comment,[e.target.name]: e.target.value })
 	}
+	const postCommentHandler = async () => {
+		try {
+			await addNewComment({ ...comment, postId: 10 });
+			const { data } = await getAllComment();
+			setComments(data);
+		} catch (error) {}
+	};
+
 
 	
 	return (
@@ -28,7 +39,7 @@ const NewComment = ({onAddPost}) => {
 					<label htmlFor='body'>body</label>
 					<textarea type='textarea' name='body' onChange={changeHandler} />
 				</div>
-				<button onClick={()=>onAddPost(comment)}>add new comment</button>
+				<button onClick={postCommentHandler}>add new comment</button>
 			</form>
 		</div>
 	);
