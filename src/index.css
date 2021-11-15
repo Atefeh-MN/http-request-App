@@ -6,4 +6,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+*{
+    margin: 0;
+    list-style: none;
+    font-family: calibri;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: rgb(46, 51, 53);
+}
+ul{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(229, 232, 236);
+    font-size: 18px;
+    height: 60px;
+}
+ul li{
+    margin-left: 20px;
+}

@@ -1,15 +1,12 @@
-import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { deleteComment } from '../services/deleteComment';
-import { getAllComment } from '../services/getAllComment';
 import { getComment } from '../services/getComment';
 
 
-const FullComment = ({ commentId, setComments, setSelectedId }) => {
-	const [
-		comment,
-		setComment,
-	] = useState(null);
+const FullComment = ({history,match }) => {
+	const commentId = match.params.id;
+	const [comment,setComment] = useState(null);
 
 	useEffect(() => {
 		const getSelectComment = async () => {
@@ -34,9 +31,7 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
 	const deleteHandler = async () => {
 		try {
 			await deleteComment(commentId);
-			const { data } = await getAllComment();
-			setComments(data);
-			setSelectedId(null);
+			history.push('/')
 			setComment(null);
 		} catch (err) {}
 	};
@@ -47,16 +42,14 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
 
 	if (comment) {
 		commentDetail = (
-			<div className='box'>
-				{/* <h5>Full Comment</h5> */}
-				<div className='column'>
-					<p>{comment.name}</p>
-					<p>{comment.email}</p>
-					<p>{comment.body}</p>
+			<div className='box column'>
+				 <h3 className='header'>Full Comment</h3> 
+					<p>Name:{comment.name}</p>
+					<p>Email :{comment.email}</p>
+					<p>comment: {comment.body}</p>
 					<button className='delete' onClick={deleteHandler}>
 						Delete
 					</button>
-				</div>
 			</div>
 		);
 	}
